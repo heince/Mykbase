@@ -1,0 +1,48 @@
+#convert "YYYY-MM-DD hh::mm::ss" to Wed May 16 16:26:38 2012
+#sample function
+
+sub convert_datetime{
+    my $self = shift;
+    
+    use Time::Local;
+    my $date = shift;
+
+    my @array = split / +/ , $date;
+    $date = $array[0];
+    my $time = $array[1];
+
+    my @splitdate = split '-' , $date;
+    my @splittime = split ':', $time;
+
+    my $day = $splitdate[2];
+    my $month = $splitdate[1];
+    my $year = $splitdate[0];
+    
+    my $seconds = $splittime[2];
+    my $minutes = $splittime[1];
+    my $hours = $splittime[0];
+
+    $time = timelocal($seconds,$minutes,$hours,$day,($month-1),$year);
+    $date = scalar(localtime($time));
+
+    return $date;
+}
+
+
+#sample function to manipulate date output
+sub date_output{
+    my $self = shift;
+    
+    my $date = shift;
+
+    use Date::Manip qw(ParseDate UnixDate);
+
+    my @array = split / +/ , $date;
+
+    $date = "$array[2] $array[1] $array[4]";
+    my $time = "$array[3]";
+    my $datemanip = ParseDate("$date, $time");
+    my $datestr = UnixDate($datemanip, "%a %e %b %Y %H:%M:%S");    # as scalar
+    return $datestr;
+
+}

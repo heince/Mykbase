@@ -1,0 +1,55 @@
+#install postgresql
+yum install -y postgresql84-devel postgresql84-libs postgresql84-server postgresql84
+
+#install other depedencies
+yum install -y perl-suid libxml2* gcc make
+
+#create gold dir
+mkdir /opt/gold
+
+#create user who will run as gold admin
+useradd goldadmin
+su - goldadmin
+
+#build
+./configure --prefix=/opt/gold --with-db=Pg
+make
+
+#make deps as root
+make deps
+
+#install as root
+make install
+make auth_key
+
+#set the env
+cp etc/gold.sh etc/gold.csh /etc/profile.d/
+cp etc/gold.d.in /etc/init.d/gold 	#need to edit the user who run the daemon and prefix
+. /etc/profile.d/gold.sh
+
+#Database Setup
+su - postgres
+initdb -D /var/lib/pgsql/data
+echo "host all all 192.168.89.38 255.255.255.255 trust" >> /var/lib/pgsql/data/pg_hba.conf
+echo "listen_addresses = '*'" >> /var/lib/pgsql/data/postgresql.conf
+
+#start DB as root
+/etc/init.d/postgresql restart
+
+#create goldadmin as db admin
+su - postgres
+createuser goldadmin
+
+#create gold DB as goldadmin user
+su - goldadmin
+createdb gold
+
+#edit /opt/gold/etc/goldd.conf
+#set the username & password to connect
+
+#bootstrap, go to gold build dir
+psql gold < bank.sql
+
+#restart gold daemon as root
+/etc/init.d/gold restart
+

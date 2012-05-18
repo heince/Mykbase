@@ -1,0 +1,6 @@
+#!/usr/bin/env perl
+use v5.14;
+use lib ("$ENV{'KBASE_ROOT'}");
+use Mykbase;
+
+Mykbase->run;

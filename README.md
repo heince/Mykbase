@@ -1,4 +1,4 @@
 Mykbase
 =======
 
-text base knowledgebase
+text based knowledgebase
