@@ -3,13 +3,15 @@ Mykbase
 
 text based knowledgebase
 
-Perl v5.14
+Perl v5.14.
 Required modules : cpan CLI::Framework DateTime::Format::SQLite Datetime Mouse DBIx::Class DBIx::Class::Schema::Loader Date::Manip
-Text editor is configurable, tested using vi
+
+Text editor is configurable, tested using vi.
 searchable by title, category, tag, desc, etc.
 
 #an example to search by 'linux' keyword
 $ kbase search linux
+
 == Search by title ==
 
 1 || using linux || description here || linux || Wed May 16 16:24:15 2012
@@ -21,7 +23,9 @@ no record found
 
 #other search example
 $ kbase s --title=linux  #search title that contain 'title' word
+
 $ kbase s --title=linux --exact #search title that has exact 'title' word
+
 $ kbase s --tag=oss --title=perl
 
 #to open / edit the file
