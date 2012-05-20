@@ -1,5 +1,13 @@
 #!/usr/bin/env perl
 use v5.14;
+
+        
+BEGIN{
+    unless($ENV{'KBASE_ROOT'}){
+        die "Can't found KBASE_ROOT env variable, please set one!\n";
+    }
+}
+
 use lib ("$ENV{'KBASE_ROOT'}");
 use Mykbase;
 
