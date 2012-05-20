@@ -19,6 +19,7 @@ sub validate{
     my ($self, $cmd_opts, @args) = @_;
 
     die $self->usage_text()  . "\n" unless %$cmd_opts;
+	 }else{
 }
 
 sub option_spec {
