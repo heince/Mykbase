@@ -83,6 +83,9 @@ sub init {
 
     my $general = General->new();
     
+    #check environment and configuration file
+    $general->conf_check();
+    
     #set dbschema
     $general->dbschema(connectdb());
     
