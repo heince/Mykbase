@@ -48,6 +48,17 @@ sub print(){
     }
 }
 
+#get last record
+sub get_last_record{
+    my $self = shift;
+    
+    my $limit = shift;
+    
+    my $rs = ${$self->dbh}->resultset('Kbase')->search( {}, { rows => $limit , order_by => 'id desc' } );
+    $self->rs($rs);
+    $self->print("Last $limit records");
+}
+
 #global check function
 sub check(){
     my $self = shift;

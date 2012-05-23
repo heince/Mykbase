@@ -33,6 +33,7 @@ ARGUMENTS (subcommands):
     add	        -   add kbase
     search      -   search kbase
     open        -   open kbase
+    last        -   view last added record
     
 EOF
 }
@@ -65,6 +66,7 @@ sub command_map {
     add		=> 'Mykbase::Command::Add',
     search	=> 'Mykbase::Command::Search',
     open	=> 'Mykbase::Command::Open',
+    last => 'Mykbase::Command::Last'
 }
 
 sub command_alias {
@@ -74,6 +76,7 @@ sub command_alias {
     a  => 'add',
     s  => 'search',
     o  => 'open',
+    last => 'last',
 }
 
 sub init {
